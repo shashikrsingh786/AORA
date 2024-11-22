@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "jsx": "react-native",
+    "target": "es6",
+    "module": "commonjs",
+    "strict": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true
+  },
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".expo/types/**/*.ts",
+    "expo-env.d.ts",
+    "nativewind-env.d.ts"
+, "constants/icons.js", "constants/images.js", "constants/index.js", "app/(tabs)/_layout.jsx", "app/(tabs)/bookmark.jsx", "app/(tabs)/create.jsx", "app/(tabs)/home.jsx", "app/(tabs)/profile.jsx", "app/(auth)/_layout.jsx", "app/(auth)/sign-in.jsx", "app/(auth)/sign-up.jsx", "components/CustomButton.jsx", "app/index.jsx", "app/_layout.jsx"  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "extends": "expo/tsconfig.base"
+}
