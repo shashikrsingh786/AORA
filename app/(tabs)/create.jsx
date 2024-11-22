@@ -4,7 +4,7 @@ import React from 'react'
 const CreatePost = () => {
   return (
     <View>
-      <Text>CreatePost</Text>
+      <Text>CreatePost upated</Text>
     </View>
   )
 }
