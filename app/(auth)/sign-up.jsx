@@ -7,10 +7,10 @@ import { images } from "../../constants";
 import { createUser } from "../../lib/appwrite";
 import CustomButton from "../../components/CustomButton";
 import FormField from "../../components/FormField";
-// import { useGlobalContext } from "../../context/GlobalProvider";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const SignUp = () => {
-  // const { setUser, setIsLogged } = useGlobalContext();
+  const { setUser, setIsLogged } = useGlobalContext();
 
   const [isSubmitting, setSubmitting] = useState(false);
   const [form, setForm] = useState({
@@ -24,17 +24,18 @@ const SignUp = () => {
       console.log("error");
       Alert.alert("Error", "Please fill in all fields");
     }
-    return;
+
+  
 
     setSubmitting(true);
     try {
       const result = await createUser(form.email, form.password, form.username);
-      // setUser(result);
-      // setIsLogged(true);
-
+      setUser(result);
+      setIsLogged(true);
       router.replace("/home");
     } catch (error) {
-      Alert.alert("Error", error.message);
+      console.log("Error aa gya",error.message);
+      Alert.alert(error.message);
     } finally {
       setSubmitting(false);
     }

@@ -1,14 +1,14 @@
-// import { StatusBar } from "expo-status-bar";
+import { StatusBar } from "expo-status-bar";
 import { Redirect, Tabs } from "expo-router";
 import { Image, Text, View } from "react-native";
 
 import { icons } from "../../constants";
-// import { Loader } from "../../components";
-// import { useGlobalContext } from "../../context/GlobalProvider";
+import { Loader } from "../../components/Loader";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const TabIcon = ({ icon, color, name, focused }) => {
   return (
-    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center', marginTop: 30,gap:7}}>
+    <View style={{flex: 1, alignItems: 'center', justifyContent: 'center',gap:2,marginTop: 20}}>
       <Image
         source={icon}
         resizeMode="contain"
@@ -26,9 +26,9 @@ const TabIcon = ({ icon, color, name, focused }) => {
 };
 
 const TabLayout = () => {
-  // const { loading, isLogged } = useGlobalContext();
+  const { loading, isLogged } = useGlobalContext();
 
-  // if (!loading && !isLogged) return <Redirect href="/sign-in" />;
+  if (!loading && !isLogged) return <Redirect href="/sign-in" />;
 
   return (
     <>
@@ -108,8 +108,8 @@ const TabLayout = () => {
         />
       </Tabs>
 
-      {/* <Loader isLoading={loading} />
-      <StatusBar backgroundColor="#161622" style="light" /> */}
+      <Loader isLoading={loading} />
+      <StatusBar backgroundColor="#161622" style="light" />
     </>
   );
 };
