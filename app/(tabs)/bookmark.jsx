@@ -1,12 +1,20 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TouchableOpacity, ImageBackground, Image } from 'react-native';
 import { Video } from 'expo-av'; // expo-video alternative
 import { icons } from '../../constants';
+import { getAllUsers } from '../../lib/appwrite';
 
 const videoSource = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
 export default function VideoScreen() {
   const [isPlaying, setIsPlaying] = useState(false);
+
+  useEffect(()=> {
+    const dosome = async () => {
+      console.log(await getAllUsers(),"lolll");
+    }
+    dosome();
+  })
 
   return (
     <View style={styles.container}>
