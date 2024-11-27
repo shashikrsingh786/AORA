@@ -1,58 +1,62 @@
-import React, { useEffect, useState } from 'react';
-import { StyleSheet, View, TouchableOpacity, ImageBackground, Image } from 'react-native';
-import { Video } from 'expo-av'; // expo-video alternative
-import { icons } from '../../constants';
-import { getAllUsers } from '../../lib/appwrite';
+import { FlatList, Image, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import VideoCard from "../../components/VideoCard";
+import { EmptyState } from "../../components/EmptyState";
+import { images } from "../../constants";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
-const videoSource = 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4';
 
-export default function VideoScreen() {
-  const [isPlaying, setIsPlaying] = useState(false);
-
-  useEffect(()=> {
-    const dosome = async () => {
-      console.log(await getAllUsers(),"Allusers");
-    }
-    dosome();
-  })
-
+const Bookmark = () => {
+  const {user} = useGlobalContext();
+ 
   return (
-    <View style={styles.container}>
-      {isPlaying ? (
-        <Video
-          source={{ uri: videoSource }}
-          style={styles.video}
-          resizeMode="contain"
-          shouldPlay
-          isLooping
+    <SafeAreaView style={{backgroundColor: '#000000', height: '100%'}}>
+      <FlatList
+        data={user.bookmarkVideos}
+        keyExtractor={(item) => item.$id}
+        renderItem={({ item }) => (
+          <VideoCard
+          title={item.title}
+          thumbnail={item.thumbnail}
+          video={item.video}
+          creator={item.creator.username}
+          avatar={item.creator.avatar}
+          id = {item.$id}
+          isBookmark = {true}
         />
-      ) : (
-        <TouchableOpacity onPress={() => setIsPlaying(true)}>
-          <ImageBackground
-            source={{ uri: 'https://i.ibb.co/7XqVPVT/Photo-1677756119517.png' }}
-            style={styles.video}
-          >
-            <Image source={icons.play} style={styles.playIcon} />
-          </ImageBackground>
-        </TouchableOpacity>
-      )}
-    </View>
-  );
-}
+        )}
+        ListHeaderComponent={() => (
+          <View className="flex my-6 px-4 space-y-6">
+            <View className="flex justify-between items-start flex-row mb-6">
+              <View>
+                <Text className="font-pmedium text-sm text-gray-100">
+                  Welcome Back
+                </Text>
+                <Text className="text-2xl font-psemibold text-white">
+                  JSMastery
+                </Text>
+              </View>
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  video: {
-    width: 350, // Set width of video/image
-    height: 275, // Set height of video/image
-  },
-  playIcon: {
-    width: 50,
-    height: 50,
-    alignSelf: 'center',
-  },
-});
+              <View className="mt-1.5">
+                <Image
+                  source={images.logoSmall}
+                  style={{width:45,height:50}}
+                  resizeMode="contain"
+                />
+              </View>
+            </View>
+          </View>
+        )}
+        ListEmptyComponent={() => (
+          <EmptyState
+            title="No Videos Found"
+            subtitle="No videos created yet"
+          />
+        )}
+      />
+    </SafeAreaView>
+  );
+};
+
+
+export default Bookmark;

@@ -1,11 +1,20 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useVideoPlayer, VideoView } from "expo-video";
-import { View, Text, TouchableOpacity, Image } from "react-native";
+import { View, Text, Image, TouchableOpacity, Alert } from "react-native";
+
+
 
 import { icons } from "../constants";
+import CustomButton from "./CustomButton";
+import { bookmarkPost } from "../lib/appwrite";
 
-const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
+const VideoCard = ({ title, creator, avatar, thumbnail, video,id,isBookmark: initialIsBookmark}) => {
+  const [bookmark,setBookmark] = useState(initialIsBookmark);
   const [play, setPlay] = useState(false);
+
+  useEffect(() => {
+    setBookmark(initialIsBookmark);
+  }, [initialIsBookmark]);
   
   const player = useVideoPlayer(video, player => {
     player.loop = false;
@@ -14,6 +23,22 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
       setPlay(false);
     });
   });
+
+  const bookmarkVideo = async () => {
+    try {
+       setBookmark(true);
+      const result = await bookmarkPost(id);
+     
+     
+      console.log("bookmark success");
+      Alert.alert("Success", "Post bookmarked successfully");
+
+    }
+    catch(error) {
+      console.log(error);
+      Alert.alert(error);
+    }
+  }
 
   return (
     <View style={{ 
@@ -71,8 +96,20 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
           </View>
         </View>
 
-        <View className="pt-2">
-          <Image source={icons.menu} style={{width: 30, height: 30}} resizeMode="contain" />
+        <View className="flex pt-2">
+        <TouchableOpacity
+          activeOpacity={0.7}
+          onPress={() => bookmarkVideo()}
+          
+        >
+          <Image
+           source={bookmark ? icons.fav : icons.unfav}
+             resizeMode="contain"
+              tintColor='white'
+        style={{width: 30, height: 30}}/>
+          </TouchableOpacity>
+             {/* <Image source={icons.menu} style={{width: 30, height: 30}} resizeMode="contain" />
+         */}
         </View>
       </View>
 

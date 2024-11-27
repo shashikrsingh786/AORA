@@ -9,11 +9,15 @@ import {  SearchInput } from "../../components/SearchInput";
 import {  EmptyState } from "../../components/EmptyState";
 import   Trending  from "../../components/Trending";
 import   VideoCard  from "../../components/VideoCard";
+import { useGlobalContext } from "../../context/GlobalProvider";
 
 const Home = () => {
   const { data: post, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
-  console.log(latestPosts,"sdfs");
+  console.log(post,"sdfs");
+  const {user} = useGlobalContext();
+  console.log(user,"qqqqq")
+  
 
   
   const [refreshing, setRefreshing] = useState(false);
@@ -22,6 +26,7 @@ const Home = () => {
     await refetch();
     setRefreshing(false);
   };
+
 
   // one flatlist
   // with list header
@@ -41,6 +46,8 @@ const Home = () => {
           video={item.video}
           creator={item.creator.username}
           avatar={item.creator.avatar}
+          id = {item.$id}
+          isBookmark = {user==null ? false : user.bookmarkVideos.map((item)=>item.$id).includes(item.$id)}
         />
         )}
         ListHeaderComponent={() => (

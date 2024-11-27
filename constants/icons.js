@@ -11,8 +11,14 @@ import logout from "../assets/icons/logout.png";
 import eyeHide from "../assets/icons/eye-hide.png";
 import eye from "../assets/icons/eye.png";
 import play from "../assets/icons/play.png";
+import unbookmark from '../assets/icons/unbookmark.png';
+import bookmarkpostIcon from '../assets/icons/bookmarkpostIcon.png'
+import fav from '../assets/icons/fav.png'
+import unfav from '../assets/icons/unfav.png'
 
 export default {
+  fav,
+  unfav,
   play,
   bookmark,
   home,
@@ -26,4 +32,6 @@ export default {
   logout,
   eyeHide,
   eye,
+  unbookmark,
+  bookmarkpostIcon
 };
