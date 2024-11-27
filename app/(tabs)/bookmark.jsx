@@ -11,7 +11,7 @@ export default function VideoScreen() {
 
   useEffect(()=> {
     const dosome = async () => {
-      console.log(await getAllUsers(),"lolll");
+      console.log(await getAllUsers(),"allusers");
     }
     dosome();
   })
