@@ -30,7 +30,7 @@ const Home = () => {
   //  we cannot do that with just scrollview as there's both horizontal and vertical scroll (two flat lists, within trending)
 
   return (
-    <SafeAreaView className="bg-primary h-full">
+    <SafeAreaView style={{backgroundColor: '#000000', height: '100%'}}>
       <FlatList
         data={post}
         keyExtractor={(item) => item.$id}

@@ -72,14 +72,14 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
         </View>
 
         <View className="pt-2">
-          <Image source={icons.menu}  style={{width:30,height:30}} resizeMode="contain" />
+          <Image source={icons.menu} style={{width: 30, height: 30}} resizeMode="contain" />
         </View>
       </View>
 
       {play ? (
         <VideoView
           player={player}
-          className="w-full h-60 rounded-xl mt-3"
+          style={{width: '100%', height: 240, borderRadius: 12, marginTop: 12}}
           contentFit="contain"
           nativeControls
         />
@@ -90,17 +90,17 @@ const VideoCard = ({ title, creator, avatar, thumbnail, video }) => {
             setPlay(true);
             player.play();
           }}
-          className="w-full h-60 rounded-xl mt-3 relative flex justify-center items-center"
+          style={{width: '100%', height: 240, borderRadius: 12, marginTop: 12, position: 'relative', justifyContent: 'center', alignItems: 'center'}}
         >
           <Image
             source={{ uri: thumbnail }}
-            className="w-full h-full rounded-xl mt-3"
+            style={{width: '100%', height: '100%', borderRadius: 12, marginTop: 12}}
             resizeMode="cover"
           />
 
           <Image
             source={icons.play}
-            className="w-12 h-12 absolute"
+            style={{width: 48, height: 48, position: 'absolute'}}
             resizeMode="contain"
           />
         </TouchableOpacity>

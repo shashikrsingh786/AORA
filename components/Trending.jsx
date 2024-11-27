@@ -30,9 +30,14 @@ const zoomOut = {
 
 const TrendingItem = ({ activeItem, item }) => {
   const [play, setPlay] = useState(false);
-  const videoPlayer = useVideoPlayer(
-    play ? { uri: item.video } : undefined
-  );
+  let video = item.video;
+  const player = useVideoPlayer(video, player => {
+    player.loop = false;
+    // Auto stop when finished
+    player.addListener('playToEnd', () => {
+      setPlay(false);
+    });
+  });
 
   return (
     <Animatable.View
@@ -42,33 +47,51 @@ const TrendingItem = ({ activeItem, item }) => {
     >
       {play ? (
         <VideoView
-          player={videoPlayer}
-          className="w-52 h-72 rounded-[33px] mt-3 bg-white/10"
-          contentFit="contain"
-          nativeControls={true}
-          onPlaybackStatusUpdate={(status) => {
-            if (status.didJustFinish) {
-              setPlay(false);
-            }
+          player={player}
+          style={{
+            width: 208,
+            height: 288,
+            borderRadius: 33,
+            marginTop: 12,
+            backgroundColor: 'rgba(255, 255, 255, 0.1)'
           }}
+          contentFit="fill"
+          nativeControls
         />
       ) : (
         <TouchableOpacity
           className="relative flex justify-center items-center"
           activeOpacity={0.7}
-          onPress={() => setPlay(true)}
+          onPress={() => {
+            setPlay(true);
+            player.play();
+          }}
         >
-          <ImageBackground
+          <Image
             source={{
               uri: item.thumbnail,
             }}
-            className="w-52 h-72 rounded-[33px] my-5 overflow-hidden shadow-lg shadow-black/40"
+            style={{
+              width: 208,
+              height: 288,
+              borderRadius: 33,
+              marginVertical: 20,
+              overflow: 'hidden',
+              shadowColor: '#000',
+              shadowOffset: { width: 0, height: 4 },
+              shadowOpacity: 0.4,
+              shadowRadius: 4,
+            }}
             resizeMode="cover"
           />
 
           <Image
             source={icons.play}
-            className="w-12 h-12 absolute"
+            style={{
+              width: 48,
+              height: 48,
+              position: 'absolute',
+            }}
             resizeMode="contain"
           />
         </TouchableOpacity>
@@ -76,6 +99,7 @@ const TrendingItem = ({ activeItem, item }) => {
     </Animatable.View>
   );
 };
+
 
 const Trending = ({ posts }) => {
   const [activeItem, setActiveItem] = useState(posts[0]);
@@ -85,6 +109,8 @@ const Trending = ({ posts }) => {
       setActiveItem(viewableItems[0].key);
     }
   }, []);
+
+  
 
   const viewabilityConfig = useMemo(() => ({
     itemVisiblePercentThreshold: 70
