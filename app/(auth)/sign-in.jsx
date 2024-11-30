@@ -51,13 +51,13 @@ const SignIn = () => {
           }}
         >
           <Image
-            source={images.logo}
+            source={images.original}
             resizeMode="contain"
-            style={{width:150,height:60}}
+            style={{width:180,height:90,alignSelf: 'center'}}
           />
 
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Log in to Aora
+            Log in to GenFlix
           </Text>
 
           <FormField

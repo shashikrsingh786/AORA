@@ -50,14 +50,14 @@ const SignUp = () => {
             minHeight: Dimensions.get("window").height - 100,
           }}
         >
-          <Image
-            source={images.logo}
+            <Image
+            source={images.original}
             resizeMode="contain"
-            style={{width:150,height:60}}
+            style={{width:180,height:90,alignSelf: 'center'}}
           />
 
           <Text className="text-2xl font-semibold text-white mt-10 font-psemibold">
-            Sign Up to Aora
+            Sign Up to GenFlix
           </Text>
 
           <FormField

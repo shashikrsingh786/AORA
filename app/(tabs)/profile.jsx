@@ -43,8 +43,8 @@ const Profile =  () => {
             creator={item.creator.username}
             avatar={item.creator.avatar}
             id = {item.$id}
-            isBookmark = {user==null ? false : user.bookmarkVideos.includes(item.$id)}
-          />
+            showBookmark = {false}
+            />
         )}
         ListEmptyComponent={() => (
           <EmptyState

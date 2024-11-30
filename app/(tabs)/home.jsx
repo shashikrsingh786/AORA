@@ -14,12 +14,13 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 const Home = () => {
   const { data: post, refetch } = useAppwrite(getAllPosts);
   const { data: latestPosts } = useAppwrite(getLatestPosts);
-  console.log(post,"sdfs");
-  const {user} = useGlobalContext();
-  console.log(user,"qqqqq")
-  
+  const { user, refreshUser } = useGlobalContext();
 
-  
+  const handleBookmarkSuccess = () => {
+    refreshUser();
+    refetch();
+  };
+
   const [refreshing, setRefreshing] = useState(false);
   const onRefresh = async () => {
     setRefreshing(true);
@@ -48,6 +49,7 @@ const Home = () => {
           avatar={item.creator.avatar}
           id = {item.$id}
           isBookmark = {user==null ? false : user.bookmarkVideos.map((item)=>item.$id).includes(item.$id)}
+          onBookmarkSuccess={handleBookmarkSuccess}
         />
         )}
         ListHeaderComponent={() => (
@@ -58,7 +60,7 @@ const Home = () => {
                   Welcome Back
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  JSMastery
+                 {user.username}
                 </Text>
               </View>
 
@@ -91,6 +93,16 @@ const Home = () => {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
+        removeClippedSubviews={true}
+        maxToRenderPerBatch={5}
+        updateCellsBatchingPeriod={30}
+        initialNumToRender={7}
+        windowSize={5}
+        getItemLayout={(data, index) => ({
+          length: 400, // Approximate height of each item
+          offset: 400 * index,
+          index,
+        })}
       />
     </SafeAreaView>
   );

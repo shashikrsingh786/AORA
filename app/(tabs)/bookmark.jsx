@@ -7,8 +7,12 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 
 
 const Bookmark = () => {
-  const {user} = useGlobalContext();
- 
+  const {user, refreshUser} = useGlobalContext();
+  
+  const handleBookmarkSuccess = () => {
+    refreshUser(); // Refresh user data
+  };
+
   return (
     <SafeAreaView style={{backgroundColor: '#000000', height: '100%'}}>
       <FlatList
@@ -23,6 +27,7 @@ const Bookmark = () => {
           avatar={item.creator.avatar}
           id = {item.$id}
           isBookmark = {true}
+          onBookmarkSuccess={handleBookmarkSuccess}
         />
         )}
         ListHeaderComponent={() => (
@@ -30,10 +35,10 @@ const Bookmark = () => {
             <View className="flex justify-between items-start flex-row mb-6">
               <View>
                 <Text className="font-pmedium text-sm text-gray-100">
-                  Welcome Back
+                  Liked Videos : 
                 </Text>
                 <Text className="text-2xl font-psemibold text-white">
-                  JSMastery
+                  {user.bookmarkVideos.length}
                 </Text>
               </View>
 
