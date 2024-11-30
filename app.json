@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "AORA-2",
-    "slug": "AORA-2",
+    "name": "genflix",
+    "slug": "genflix",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/icon.png",
-    "scheme": "myapp",
+    "icon": "./assets/images/appicon.png",
+    "scheme": "genflix",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {
@@ -13,10 +13,15 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/appicon.png",
         "backgroundColor": "#ffffff"
       },
-      "package" : "com.shashi.aora"
+      "package": "com.shashi.aora",
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ]
     },
     "web": {
       "bundler": "metro",
@@ -34,8 +39,8 @@
           "backgroundColor": "#ffffff"
         }
       ],
-    "expo-font",
-    [
+      "expo-font",
+      [
         "expo-video",
         {
           "supportsBackgroundPlayback": true,
@@ -45,6 +50,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "7bbf6760-78df-4d6f-9c7a-2c3d1b73e766"
+      }
     }
   }
 }

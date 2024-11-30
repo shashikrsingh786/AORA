@@ -22,11 +22,12 @@ const Welcome = () => {
           flexGrow: 1,
         }}
       >
-        <View style={{width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%', paddingHorizontal: 16}}>
+        <View style={{width: '100%', display: 'flex', justifyContent: 'start', alignItems: 'center', height: '100%', paddingHorizontal: 16,marginTop: 50}}>
           <Image
-            source={images.logo}
-            style={{width: 180, height: 45}}
+            source={images.original}
+            style={{width: 180, height: 90}}
             resizeMode="contain"
+           
           />
 
           <Image
@@ -39,26 +40,31 @@ const Welcome = () => {
             <Text style={{fontSize: 30, color: '#fff', fontWeight: 'bold', textAlign: 'center'}}>
               Discover Endless{"\n"}
               Possibilities with{" "}
-              <Text style={{color: '#FFA001'}}>Aora</Text>
+              <Text style={{color: '#FFA001'}}>GenFlix</Text>
             </Text>
 
             <Image
               source={images.path}
-              style={{width: 80, height: 40, position: 'absolute', bottom: -2, right: -8}}
+              style={{width: 80, height: 40, position: 'absolute', bottom: -15, right: 95}}
               resizeMode="contain"
             />
           </View>
 
           <Text style={{fontSize: 14, fontFamily: 'Poppins-Regular', color: '#f3f4f6', marginTop: 28, textAlign: 'center'}}>
             Where Creativity Meets Innovation: Embark on a Journey of Limitless
-            Exploration with Aora
+            Exploration with GenFlix
           </Text>
-
+         
           <CustomButton
             title="Continue with Email"
             handlePress={() => router.push("/sign-in")}
             containerStyles="w-full mt-7"
           />
+           <Text style={{fontSize: 15, fontFamily: 'Poppins-Regular', color: '#9ca3af', textAlign: 'center'}}>
+            Made with ❤️ by Shashi
+          </Text>
+
+          
         </View>
       </ScrollView>
 

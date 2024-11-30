@@ -10,6 +10,21 @@ export const GlobalProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
+  const refreshUser = async () => {
+    try {
+      const res = await getCurrentUser();
+      if (res) {
+        setUser(res);
+        setIsLogged(true);
+      } else {
+        setUser(null);
+        setIsLogged(false);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   useEffect(() => {
     getCurrentUser()
       .then((res) => {
@@ -37,6 +52,8 @@ export const GlobalProvider = ({ children }) => {
         user,
         setUser,
         loading,
+        setLoading,
+        refreshUser
       }}
     >
       {children}

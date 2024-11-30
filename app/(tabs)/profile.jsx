@@ -9,10 +9,17 @@ import { useGlobalContext } from "../../context/GlobalProvider";
 import { EmptyState} from "../../components/EmptyState";
 import { InfoBox} from "../../components/InfoBox";
 import VideoCard  from "../../components/VideoCard";
+import { Loader } from "../../components/Loader";
+import { useState,useEffect } from "react";
 
-const Profile = () => {
+
+
+const Profile =  () => {
   const { user, setUser, setIsLogged } = useGlobalContext();
-  const { data: posts } = useAppwrite(() => getUserPosts(user.$id));
+  const { data : posts , loading  } = useAppwrite(() => getUserPosts(user.$id));
+
+
+  
 
   const logout = async () => {
     await signOut();
@@ -24,6 +31,7 @@ const Profile = () => {
 
   return (
     <SafeAreaView className="bg-primary h-full">
+     {(loading || !posts) && <Loader isLoading={true} />}
       <FlatList
         data={posts}
         keyExtractor={(item) => item.$id}
@@ -34,7 +42,9 @@ const Profile = () => {
             video={item.video}
             creator={item.creator.username}
             avatar={item.creator.avatar}
-          />
+            id = {item.$id}
+            showBookmark = {false}
+            />
         )}
         ListEmptyComponent={() => (
           <EmptyState
